@@ -1,6 +1,9 @@
+import { pipe } from "fp-ts/lib/function";
+import { chain } from "fp-ts/lib/TaskEither";
 import { makeObservable, action } from "mobx";
-import { Person, personDecoder } from "../schema/person";
-import { createFetch } from "./fetch";
+import { liftDecoder } from "../schema/decoder";
+import { Person, PersonDecoder } from "../schema/person";
+import { createDelay, createFetch } from "../service/fetch";
 import { StoreBase } from "./store";
 
 export class PersonStore extends StoreBase<Person> {
@@ -12,9 +15,10 @@ export class PersonStore extends StoreBase<Person> {
   }
 
   getPerson() {
-    const personUpdateAction = createFetch<Person>(
-      "/hello/world",
-      personDecoder
+    const personUpdateAction = pipe(
+      createDelay(2000),
+      chain(() => createFetch("/hello/world")),
+      chain(liftDecoder(PersonDecoder))
     );
 
     this.update(personUpdateAction);

@@ -1,5 +1,5 @@
 import { observer } from "mobx-react-lite";
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 import { EnhPerson } from "../components/Person";
 import { PersonStore } from "../stores/person_store";
 
@@ -8,11 +8,15 @@ export type FirstScreenProps = {
 };
 const FirstScreen = ({ store }: FirstScreenProps) => {
   useEffect(() => {
-    store.getPerson();
+    // store.getPerson();
   }, [store]);
+
+  const clickHandler = useCallback(() => store.getPerson(), []);
 
   return (
     <>
+      <button onClick={clickHandler}>load</button>
+      <hr />
       <EnhPerson
         person={store.data}
         fetching={store.fetching}
