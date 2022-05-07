@@ -16,8 +16,7 @@ export class PersonStore extends StoreBase<Person> {
 
   getPerson() {
     const personUpdateAction = pipe(
-      createDelay(2000),
-      chain(() => createFetch("/hello/world")),
+      createFetch("https://swapi.dev/api/people/1/"),
       chain(liftDecoder(PersonDecoder))
     );
 

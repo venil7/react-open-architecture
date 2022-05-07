@@ -1,9 +1,9 @@
 import * as t from "io-ts";
 
 export const PersonDecoder = t.type({
-  id: t.number,
+  mass: t.string,
   name: t.string,
-  age: t.number,
+  gender: t.string,
 });
 
 export type Person = t.TypeOf<typeof PersonDecoder>;

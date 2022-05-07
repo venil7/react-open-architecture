@@ -14,9 +14,9 @@ export const Person: React.FC<PersonProps> = ({ person }) => {
     <Card>
       <CardTitle tag="h5">{person.name}</CardTitle>
       <CardSubtitle className="mb-2 text-muted" tag="h6">
-        {person.id}
+        gender {person.gender}
       </CardSubtitle>
-      <CardText>{person.age}</CardText>
+      <CardText>mass: {person.mass}</CardText>
     </Card>
   );
 };

@@ -15,8 +15,9 @@ const FirstScreen = ({ store }: FirstScreenProps) => {
 
   return (
     <>
-      <button onClick={clickHandler}>load</button>
+      here: <strong>{import.meta.env.VITE_HELLO}</strong>
       <hr />
+      <button onClick={clickHandler}>load</button>
       <EnhPerson
         person={store.data}
         fetching={store.fetching}
