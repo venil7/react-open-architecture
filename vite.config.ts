@@ -1,12 +1,15 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import eslint from "@nabla/vite-plugin-eslint";
 
-// https://vitejs.dev/config/
 export default defineConfig(() => {
   return {
-    plugins: [react()],
-    define: {
-      // hello: "{'a':0}",
-    },
+    plugins: [
+      eslint({
+        // shouldLint: (path) => true,
+        eslintOptions: { cache: false },
+      }),
+      react(),
+    ],
   };
 });

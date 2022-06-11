@@ -1,4 +1,4 @@
-import { fold, left, right, chain, altW, alt } from "fp-ts/Either";
+import { altW } from "fp-ts/Either";
 import { pipe } from "fp-ts/lib/function";
 import { Predicate } from "fp-ts/lib/Predicate";
 import * as t from "io-ts";
