@@ -3,8 +3,6 @@ import { useCallback, useEffect } from "react";
 import { EnhPerson } from "../components/Person";
 import { PersonStore } from "../stores/person_store";
 
-import json from "../env/local.json";
-
 export type FirstScreenProps = {
   store: PersonStore;
 };

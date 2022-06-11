@@ -5,11 +5,10 @@ import eslint from "@nabla/vite-plugin-eslint";
 export default defineConfig(() => {
   return {
     plugins: [
+      react(),
       eslint({
-        // shouldLint: (path) => true,
         eslintOptions: { cache: false },
       }),
-      react(),
     ],
   };
 });
