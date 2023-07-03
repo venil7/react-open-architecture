@@ -7,5 +7,6 @@ export const FilmDecoder = t.type({
   opening_crawl: t.string,
   director: t.string,
   producer: t.string,
+  characters: t.array(t.string),
   release_date: DateFromISOString,
 });

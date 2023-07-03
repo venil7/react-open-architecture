@@ -1,8 +1,8 @@
-import { Errors as ValidationErrors, ValidationError } from "io-ts";
+import { ValidationError, Errors as ValidationErrors } from "io-ts";
 
 export enum AppErrorType {
-  General,
-  Validation,
+  General = "General",
+  Validation = "Validation",
 }
 export type AppError = { type: AppErrorType; message: string };
 

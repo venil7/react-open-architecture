@@ -5,4 +5,5 @@ export const CharacterDecoder = t.type({
   height: t.string,
   mass: t.string,
   gender: t.string,
+  films: t.array(t.string),
 });

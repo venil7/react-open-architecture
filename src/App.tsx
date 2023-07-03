@@ -1,18 +1,22 @@
-import React from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { FirstScreen } from "./screens/FirstScreen";
-import { SecondScreen } from "./screens/SecondScreen";
-import { createCharacterStore } from "./stores/character";
+import React, { createContext } from "react";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { CharacterScreen } from "./screens/CharacterScreen";
+import { FilmScreen } from "./screens/FilmScreen";
+import { Store, createStore } from "./stores/store";
 
-const store = createCharacterStore();
+const store = createStore();
+export const StoreContext = createContext<Store>(store);
 
-export const App: React.FC<{}> = () => {
+export const App: React.FC = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<FirstScreen store={store} />} />
-        <Route path="/main" element={<SecondScreen store={store} />} />
-      </Routes>
-    </BrowserRouter>
+    <StoreContext.Provider value={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/film/:id" element={<FilmScreen />} />
+          <Route path="/character/:id" element={<CharacterScreen />} />
+          <Route path="*" element={<Navigate to="/film/1" replace />} />
+        </Routes>
+      </BrowserRouter>
+    </StoreContext.Provider>
   );
 };
