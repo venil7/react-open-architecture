@@ -1,15 +1,13 @@
 import { pipe } from "fp-ts/lib/function";
-import { ReactNode } from "react";
 import { Card, CardSubtitle, CardText, CardTitle } from "reactstrap";
-import { Person as PersonModel } from "../decoders/person";
+import { Person as PersonModel } from "../domain/person";
 import { withError, withFetching, withNoData } from "../enhancers";
 
 export type PersonProps = {
   person: PersonModel;
-  children?: ReactNode;
 };
 
-export const Person: React.FC<PersonProps> = ({ person }) => {
+const RawPerson: React.FC<PersonProps> = ({ person }) => {
   return (
     <Card>
       <CardTitle tag="h5">{person.name}</CardTitle>
@@ -21,8 +19,8 @@ export const Person: React.FC<PersonProps> = ({ person }) => {
   );
 };
 
-export const EnhPerson = pipe(
-  Person,
+export const Person = pipe(
+  RawPerson,
   withNoData<PersonProps, "person">((p) => p.person),
   withFetching,
   withError

@@ -1,27 +1,47 @@
-import { chain } from "fp-ts/lib/TaskEither";
-import { pipe } from "fp-ts/lib/function";
-import { action, makeObservable } from "mobx";
-import { liftDecoder } from "../decoders/decoder";
-import { Person, PersonDecoder } from "../decoders/person";
-import { createGet } from "../service/fetch";
-import { StoreBase } from "./store";
+// import { StoreBase } from "./mobx_store";
 
-export class PersonStore extends StoreBase<Person> {
-  constructor() {
-    super();
-    makeObservable(this, {
-      getPerson: action,
-    });
+import { signal } from "@preact/signals-react";
+import { Person } from "../domain/person";
+import { Identity, Nullable } from "../domain/util";
+import { createGetPerson } from "../service/person";
+import { StoreBase, createStoreBase } from "./signal_store";
+
+// export class PersonStore extends StoreBase<Person> {
+//   constructor() {
+//     super();
+//     makeObservable(this, {
+//       getPerson: action,
+//     });
+//   }
+
+//   getPerson() {
+//     const id = Math.floor(Math.random() * 10);
+//     const getPersonAction = createGetPerson(id);
+//     this.update(getPersonAction);
+//   }
+// }
+
+export type PersonStore = Identity<
+  StoreBase<Nullable<Person>> & {
+    load: () => Promise<unknown>;
   }
+>;
 
-  getPerson() {
-    const id = Math.floor(Math.random() * 10);
+export const createPersonsStore = (): PersonStore => {
+  const data = signal<Nullable<Person>>(null);
+  const storeBase = createStoreBase(data);
 
-    const personUpdateAction = pipe(
-      createGet(`https://swapi.dev/api/people/${id}`),
-      chain(liftDecoder(PersonDecoder))
-    );
+  return {
+    ...storeBase,
 
-    this.update(personUpdateAction);
-  }
-}
+    load: () => {
+      const id = Math.floor(Math.random() * 10);
+      const getPersonAction = createGetPerson(id);
+      return storeBase.update(getPersonAction);
+    },
+
+    // addPerson: (p: Person) => (data.value = [...data.peek(), p]),
+    // removePerson: (i: number) =>
+    // (data.value = data.value.filter((_, idx) => idx !== i)),
+  };
+};

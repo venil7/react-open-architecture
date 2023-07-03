@@ -1,11 +1,11 @@
-import { Decoder } from "io-ts";
-import { ActionResult } from "../types/types";
 import { mapLeft } from "fp-ts/lib/Either";
-import { validationErrors } from "../types/error";
 import { pipe } from "fp-ts/lib/function";
+import { Decoder } from "io-ts";
+import { validationErrors } from "../domain/error";
+import { Action } from "../domain/util";
 
 export const liftDecoder =
-  <T>(decoder: Decoder<unknown, T>): ((json: unknown) => ActionResult<T>) =>
+  <T>(decoder: Decoder<unknown, T>): ((json: unknown) => Action<T>) =>
   (json: unknown) =>
   async () =>
     pipe(json, decoder.decode, mapLeft(validationErrors));

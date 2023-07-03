@@ -5,5 +5,3 @@ export const PersonDecoder = t.type({
   name: t.string,
   gender: t.string,
 });
-
-export type Person = t.TypeOf<typeof PersonDecoder>;

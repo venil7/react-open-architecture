@@ -1,7 +1,7 @@
 import { isLeft } from "fp-ts/lib/Either";
-import { makeObservable, observable, action } from "mobx";
-import { AppError, genericError } from "../types/error";
-import { ActionResult, Nullable } from "../types/types";
+import { action, makeObservable, observable } from "mobx";
+import { AppError, genericError } from "../domain/error";
+import { Action, Nullable } from "../domain/util";
 
 export abstract class StoreBase<T> {
   data: Nullable<T>;
@@ -18,7 +18,7 @@ export abstract class StoreBase<T> {
     this.data = init();
   }
 
-  async update(func: ActionResult<T>) {
+  async update(func: Action<T>) {
     try {
       this.error = null;
       this.fetching = true;

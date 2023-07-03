@@ -1,20 +1,14 @@
-import React, { PropsWithChildren } from "react";
-import { AppError } from "../types/error";
-import { Nullable } from "../types/types";
+import React from "react";
+import { AppError } from "../domain/error";
+import { Identity, Nullable } from "../domain/util";
 
-export type Props = PropsWithChildren<{}>;
+export type Props = {};
 
-export type WithNoData<TProps extends Props, K extends keyof TProps> = {
-  [k in K]: Nullable<TProps[K]>;
-} & Omit<TProps, K>;
-
-export type WithFetching<TProps extends Props> = TProps & {
-  fetching: boolean;
-};
-
-export type WithError<TProps extends Props> = TProps & {
-  error: Nullable<AppError>;
-};
+export type WithFetching<TProps extends Props> = Identity<
+  TProps & {
+    fetching: boolean;
+  }
+>;
 
 export function withFetching<P extends Props>(
   Component: React.FC<P>
@@ -22,6 +16,12 @@ export function withFetching<P extends Props>(
   return ({ fetching, ...rest }: WithFetching<P>) =>
     fetching ? <>fetching</> : <Component {...(rest as unknown as P)} />;
 }
+
+export type WithNoData<TProps extends Props, K extends keyof TProps> = Identity<
+  {
+    [k in K]: Nullable<TProps[K]>;
+  } & Omit<TProps, K>
+>;
 
 export function withNoData<P extends Props, K extends keyof P>(
   getter: (p: WithNoData<P, K>) => Nullable<P[K]>
@@ -36,6 +36,11 @@ export function withNoData<P extends Props, K extends keyof P>(
   };
 }
 
+export type WithError<TProps extends Props> = Identity<
+  TProps & {
+    error: Nullable<AppError>;
+  }
+>;
 export function withError<P extends Props>(
   Component: React.FC<P>
 ): React.FC<WithError<P>> {
