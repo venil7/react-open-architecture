@@ -1,10 +1,10 @@
 import { pipe } from "fp-ts/lib/function";
 import { Card, CardSubtitle, CardText, CardTitle } from "reactstrap";
-import { Person as PersonModel } from "../domain/person";
+import { Character as CharacterModel } from "../domain/character";
 import { withError, withFetching, withNoData } from "../enhancers";
 
 export type PersonProps = {
-  person: PersonModel;
+  person: CharacterModel;
 };
 
 const RawPerson: React.FC<PersonProps> = ({ person }) => {

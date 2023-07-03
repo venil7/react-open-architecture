@@ -1,9 +1,9 @@
 import { useCallback } from "react";
 import { Person } from "../components/Person";
-import { PersonStore } from "../stores/person_store";
+import { CharacterStore } from "../stores/character";
 
 export type FirstScreenProps = {
-  store: PersonStore;
+  store: CharacterStore;
 };
 
 export const FirstScreen = ({ store }: FirstScreenProps) => {

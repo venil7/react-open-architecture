@@ -2,9 +2,9 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { FirstScreen } from "./screens/FirstScreen";
 import { SecondScreen } from "./screens/SecondScreen";
-import { createPersonsStore } from "./stores/person_store";
+import { createCharacterStore } from "./stores/character";
 
-const store = createPersonsStore();
+const store = createCharacterStore();
 
 export const App: React.FC<{}> = () => {
   return (

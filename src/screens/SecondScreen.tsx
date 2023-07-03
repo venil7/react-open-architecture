@@ -1,6 +1,6 @@
-import { PersonStore } from "../stores/person_store";
+import { CharacterStore } from "../stores/character";
 
 export type SecondScreenProps = {
-  store: PersonStore;
+  store: CharacterStore;
 };
 export const SecondScreen = ({ store }: SecondScreenProps) => <>first screen</>;
