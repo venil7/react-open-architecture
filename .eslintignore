@@ -1,0 +1,2 @@
+/src/__test__/**/*.{spec.ts,ts,tsx}
+/src/mocks/**/*.{ts,tsx}

@@ -40,10 +40,10 @@ export const numOrAlpha = alternatives(numValidation, alphaValidation);
 
 export const UserDecoder = t.type({
   name: t.string.pipe(
-    regexValidation(/[A-Za-z]{3,}/, "Name has to be longervthat 3 chars")
+    regexValidation(/[A-Za-z]{3,}/, "Name has to be longer that 3 chars")
   ),
   age: t.number.pipe(
-    predicateValidation((x) => x >= 18, "age should be above 18")
+    predicateValidation((x) => x >= 18, "age should be 18 or above")
   ),
 });
 export type User = t.TypeOf<typeof UserDecoder>;

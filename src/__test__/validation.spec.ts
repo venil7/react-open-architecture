@@ -1,5 +1,5 @@
-import { isLeft, isRight } from "fp-ts/lib/Either";
-import { numOrAlpha, User, UserDecoder } from "../validation/validation";
+import { isRight } from "fp-ts/lib/Either";
+import { User, UserDecoder, numOrAlpha } from "../validation/validation";
 
 describe("testing some validation", () => {
   test("validation works for nums", () => {

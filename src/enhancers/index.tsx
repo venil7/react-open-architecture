@@ -1,5 +1,4 @@
-import React, { PropsWithChildren, ReactNode } from "react";
-import { pipe } from "fp-ts/lib/function";
+import React, { PropsWithChildren } from "react";
 import { AppError } from "../types/error";
 import { Nullable } from "../types/types";
 

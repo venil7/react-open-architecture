@@ -1,10 +1,22 @@
 import express from "express";
+import jsonServer from "json-server";
+
+declare global {
+  var server: { close: () => void };
+}
+
+const PORT: number = 4000;
+global.server?.close();
+
+const db = `${__dirname}/db.json`;
+
+const server = jsonServer.create();
+const router = jsonServer.router(db);
+const middlewares = jsonServer.defaults();
 
 const app: express.Application = express();
 
-const port: number = 3000;
+app.use(middlewares);
+app.use("/api/v1", server.use(router));
 
-app.get("/", (req, res) => res.json({ ok: 200 }));
-app.get("/hello", (req, res) => res.json({ hello: "world" }));
-
-app.listen(port, () => console.log(`listening ${port}`));
+global.server = app.listen(PORT, () => console.log(`listening ${PORT}`));

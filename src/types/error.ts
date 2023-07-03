@@ -1,4 +1,3 @@
-import { string } from "fp-ts";
 import { Errors as ValidationErrors, ValidationError } from "io-ts";
 
 export enum AppErrorType {

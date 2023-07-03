@@ -24,7 +24,7 @@ const FirstScreen = ({ store }: FirstScreenProps) => {
       .then(console.log);
   }, [store]);
 
-  const clickHandler = useCallback(() => store.getPerson(), []);
+  const clickHandler = useCallback(() => store.getPerson(), [store]);
 
   return (
     <>

@@ -1,8 +1,8 @@
 import { pipe } from "fp-ts/lib/function";
 import { ReactNode } from "react";
 import { Card, CardSubtitle, CardText, CardTitle } from "reactstrap";
-import { Person as PersonModel } from "../schema/person";
-import { withError, withFetching, withNoData } from "./enhance";
+import { Person as PersonModel } from "../decoders/person";
+import { withError, withFetching, withNoData } from "../enhancers";
 
 export type PersonProps = {
   person: PersonModel;
