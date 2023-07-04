@@ -1,0 +1,9 @@
+a {
+  text-decoration: none;
+  .list-group-item {
+    margin-bottom: 0.7em;
+  }
+  .list-group-item:hover {
+    background-color: beige;
+  }
+}

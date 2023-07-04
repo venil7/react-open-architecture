@@ -2,7 +2,7 @@ import { Do, bind, chain, map, traverseArray } from "fp-ts/lib/TaskEither";
 import { pipe } from "fp-ts/lib/function";
 import { liftDecoder } from "../decoders/decoder";
 import { FilmDecoder } from "../decoders/film";
-import { EnrichedFilm, Film } from "../domain/film";
+import { EnrichedFilm, Film, extractId } from "../domain/film";
 import { Action } from "../domain/util";
 import { createGetCharacter } from "./character";
 import { createGet } from "./fetch";
@@ -18,9 +18,8 @@ export const creategetGetEnrichedFilm = (id: number): Action<EnrichedFilm> =>
     Do,
     bind("film", () => createGetFilm(id)),
     bind("characters", ({ film }) =>
-      traverseArray((char: string) => {
-        const [, id] = char.match(/\/people\/(\d+)/)!;
-        return createGetCharacter(+id);
+      traverseArray((url: string) => {
+        return createGetCharacter(extractId({ url }));
       })(film.characters)
     ),
     map(({ film, characters }) => ({ ...film, characters }))

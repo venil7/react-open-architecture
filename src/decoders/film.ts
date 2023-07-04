@@ -9,4 +9,5 @@ export const FilmDecoder = t.type({
   producer: t.string,
   characters: t.array(t.string),
   release_date: DateFromISOString,
+  url: t.string,
 });

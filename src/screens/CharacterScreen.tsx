@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { StoreContext } from "../App";
+import { StoreContext } from "../components/App";
 import { Character } from "../components/Character";
 
 export const CharacterScreen: React.FC = () => {

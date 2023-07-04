@@ -3,6 +3,7 @@ import { pipe } from "fp-ts/lib/function";
 import { CharacterDecoder } from "../decoders/character";
 import { liftDecoder } from "../decoders/decoder";
 import { Character, EnrichedCharacter } from "../domain/character";
+import { extractId } from "../domain/film";
 import { Action } from "../domain/util";
 import { createGet } from "./fetch";
 import { createGetFilm } from "./film";
@@ -20,10 +21,9 @@ export const creategetGetEnrichedCharacter = (
     Do,
     bind("char", () => createGetCharacter(id)),
     bind("films", ({ char }) =>
-      traverseArray((film: string) => {
-        const [, id] = film.match(/\/films\/(\d+)/)!;
-        return createGetFilm(+id);
-      })(char.films)
+      traverseArray((url: string) => createGetFilm(extractId({ url })))(
+        char.films
+      )
     ),
     map(({ char, films }) => ({ ...char, films }))
   );
