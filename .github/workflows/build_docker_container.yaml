@@ -1,5 +1,10 @@
-name: "build feature branch"
-on:  [ push ]
+name: "build docker container"
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
   "Build_Docker_Container":
     runs-on: ubuntu-latest
