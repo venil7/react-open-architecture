@@ -6,6 +6,7 @@ import { Character } from "../components/Character";
 export const CharacterScreen: React.FC = () => {
   const { character } = useContext(StoreContext);
   const { id = 1 } = useParams();
+
   useEffect(() => {
     character.load(+id);
   }, [character, id]);

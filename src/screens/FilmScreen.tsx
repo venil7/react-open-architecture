@@ -5,8 +5,8 @@ import { Film } from "../components/Film";
 
 export const FilmScreen: React.FC = () => {
   const { film } = useContext(StoreContext);
-
   const { id = 1 } = useParams();
+
   useEffect(() => {
     film.load(+id);
   }, [film, id]);
