@@ -1,6 +1,7 @@
+import { ap } from "fp-ts/lib/Identity";
 import { chain } from "fp-ts/lib/Task";
 import { tryCatch } from "fp-ts/lib/TaskEither";
-import { pipe } from "fp-ts/lib/function";
+import { pipe, tupled } from "fp-ts/lib/function";
 import { AppError, genericError } from "../domain/error";
 import { Action, Nullable } from "../domain/util";
 
@@ -18,15 +19,23 @@ export const createFetch =
     url: string,
     body: Nullable<T> = null
   ): Action<unknown> => {
-    const fetchTask = pipe(
-      () => fetch(url, { method, body }),
-      chain((resp) => () => resp.json())
-    );
-    return tryCatch<AppError, unknown>(fetchTask, (e) =>
-      genericError((e as Error).message)
+    return tryCatch<AppError, unknown>(
+      pipe(
+        () =>
+          fetch(url, { method, body: body ? JSON.stringify(body) : undefined }),
+        chain((resp) => () => resp.json())
+      ),
+      (e) => genericError((e as Error).message)
     );
   };
 
-export const createGet = (url: string) => createFetch(HttpMethod.Get)(url);
+export const createGet = (url: string) =>
+  pipe(HttpMethod.Get, createFetch, ap(url));
+
 export const createPost = <T extends BodyInit>(url: string, body: T) =>
-  createFetch(HttpMethod.Post)(url, body);
+  pipe(
+    HttpMethod.Post,
+    createFetch,
+    tupled,
+    ap<[string, Nullable<T>]>([url, body])
+  );

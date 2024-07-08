@@ -29,7 +29,9 @@ export function withNoData<P extends Props, K extends keyof P>(
 ) {
   return function (Component: React.FC<P>): React.FC<WithNoData<P, K>> {
     return (props: WithNoData<P, K>) =>
-      getter(props) === null ? null : (
+      getter(props) === null ? (
+        <>data missing</>
+      ) : (
         <Component {...(props as unknown as P)} />
       );
   };

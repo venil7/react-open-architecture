@@ -1,5 +1,7 @@
 name: "build feature branch"
+
 on:  [ push ]
+
 jobs:
   "Sanity_Check_Before_Merge":
     runs-on: ubuntu-latest

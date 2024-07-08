@@ -23,16 +23,16 @@ export const createStoreBase = <T>(data: Signal<T>): StoreBase<T> => {
         error.value = null;
       }),
       chain(() => action),
-      chainFirstIOK((d) => () => {
+      chainFirstIOK((value) => () => {
         fetching.value = false;
-        data.value = d;
+        data.value = value;
       }),
-      orElseW((err) =>
-        fromIO(() => {
+      orElseW((err) => {
+        return fromIO(() => {
           fetching.value = false;
           error.value = err;
-        })
-      )
+        });
+      })
     )();
   };
 
